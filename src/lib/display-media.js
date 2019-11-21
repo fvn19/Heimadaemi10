@@ -34,10 +34,10 @@ function getNewImage() {
             return response.json();
         })
         .then((data) => {
-            img = data;
-            console.log(img);
-            text.innerHTML = img.explanation;
-            title.innerHTML = img.title;
+            image = data;
+            console.log(image);
+            text.innerHTML = image.explanation;
+            title.innerHTML = image.title;
         })
         .catch(function (error) {
             console.log(error);
