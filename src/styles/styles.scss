@@ -11,7 +11,8 @@
   box-sizing: inherit;
 }
 
-html { /* stylelint-disable-line */
+html {
+  /* stylelint-disable-line */
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: scroll; // alltaf hafa y skrollbar
@@ -22,11 +23,13 @@ html { /* stylelint-disable-line */
   background-color: #000;
 }
 
-img { /* stylelint-disable-line */
+img {
+  /* stylelint-disable-line */
   max-width: 100%;
 }
 
-h1 { /* stylelint-disable-line */
+h1 {
+  /* stylelint-disable-line */
   margin: $gutter 0;
   color: #fff;
   text-align: center;
@@ -34,7 +37,8 @@ h1 { /* stylelint-disable-line */
 
 // layout
 
-main { /* stylelint-disable-line */
+main {
+  /* stylelint-disable-line */
   display: flex;
 
   max-width: 1200px;
@@ -46,6 +50,13 @@ main { /* stylelint-disable-line */
 .game {
   padding: $gutter;
   flex: 2;
+}
+
+.favourites__imgs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 @import "text";
