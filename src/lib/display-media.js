@@ -1,3 +1,12 @@
+import {
+    save
+} from './storage.js';
+
+import {
+    randomDate
+} from './helpers.js';
+
+
 // todo vísa í rétta hluti með import
 const API_URL = 'https://api.nasa.gov/planetary/apod?api_key=JHjpxVKshVKB6gI30gpWXMWaBVXJmBP5Ooqoy0UH&date=';
 // breytur til þess að halda utan um html element nodes
@@ -6,26 +15,18 @@ let text; // texti fyrir mynd á forsíðu
 let img; // mynd á forsíðu
 let video; // myndband 
 
-function randomDate(start, end) {
-    var d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-}
-
+// breytur til að halda utan um gildin 
+let dateValue;
+let typeValue;
+let mediaUrlValue;
+let titleValue;
 
 /*
  * Sækir nýja Mynd af handahófi frá Nasa API og birtir hana á forsíðunni
  * ásamt titli og texta.
  */
 function getNewImage() {
-    //*const formatDate = randomDate(new Date('1995-06-16'), new Date());
-    const formatDate = new Date('2019-11-18');
+    const formatDate = randomDate(new Date('1995-06-16'), new Date());
     fetch(`${API_URL}${formatDate}`)
         .then((response) => {
             if (!response.ok) {
@@ -40,10 +41,17 @@ function getNewImage() {
             video = document.getElementsByClassName('apod__video')[0];
             text.innerHTML = data.explanation;
             title.innerHTML = data.title;
+
+            titleValue = data.title;
+            dateValue = data.date;
+            typeValue = data.media_type;
+            mediaUrlValue = data.url;
+
             if (data.media_type === 'video') {
                 img.src = '';
                 video.src = data.url;
             } else {
+                video.src = '';
                 img.src = data.url;
             }
         })
@@ -52,21 +60,23 @@ function getNewImage() {
         })
 }
 
-document.getElementById('new-image-button').addEventListener('click', getNewImage);
 
 /*
  * Vistar núverandi mynd í storage.
  */
 function saveCurrentImage() {
-
+    save(dateValue, typeValue, mediaUrlValue, titleValue);
 }
 
 /*
  * Upphafsstillir forsíðuna. Setur event listeners á takkana, og sækir eina mynd.
  *
  */
-export default function init(apod) {
 
+export default function init(apod) {
+    document.getElementById('new-image-button').addEventListener('click', getNewImage);
+    document.getElementById('save-image-button').addEventListener('click', saveCurrentImage);
+    getNewImage();
 }
 
 /*

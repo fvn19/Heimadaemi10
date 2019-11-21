@@ -1,4 +1,3 @@
-
 /**
  * Hreinsa börn úr elementi
  *
@@ -33,8 +32,16 @@ export function el(name, ...children) {
 }
 
 /**
-* Skilar tölu af handahófi á bilinu [min, max]
-*/
-export function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+ * Skilar dagsetning af handahófi á bilinu [min, max]
+ */
+export function randomDate(start, end) {
+  var d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
 }

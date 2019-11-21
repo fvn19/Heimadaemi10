@@ -26,8 +26,15 @@ export function load() {
  * @param {string} text texti fyrir myndina/myndbandið.
  * @param {string} title titill fyrir myndina/myndbandið.
  */
-export function save(type, mediaUrl, text, title) {
+export function save(date, type, mediaUrl, title) {
+  var testObject = {
+    'type': type,
+    'mediaUrl': mediaUrl,
+    'title': title
+  };
 
+  // Put the object into storage
+  localStorage.setItem(date, JSON.stringify(testObject));
 }
 
 
